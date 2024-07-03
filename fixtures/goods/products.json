@@ -1,0 +1,44 @@
+[
+{
+  "model": "goods.product",
+  "pk": 1,
+  "fields": {
+    "name": "Линейка",
+    "slug": "linejka",
+    "description": "Деревянная линейка (20 см)",
+    "image": "",
+    "price": "25.00",
+    "discount": "0.00",
+    "quantity": 30,
+    "category": 16
+  }
+},
+{
+  "model": "goods.product",
+  "pk": 2,
+  "fields": {
+    "name": "Ручка синяя",
+    "slug": "ruchka-sinyaya",
+    "description": "Ручка синяя, для раскрасок вряд ли сойдёт, но всё же...",
+    "image": "",
+    "price": "40.00",
+    "discount": "0.00",
+    "quantity": 50,
+    "category": 14
+  }
+},
+{
+  "model": "goods.product",
+  "pk": 3,
+  "fields": {
+    "name": "Мяч",
+    "slug": "myach",
+    "description": "Неизвестный мяч, можно с ним играть в волейбол баскетбол гандбол футбол анау мынау сыир бузау узен блесен гой видал туда сюда видал там джин га бам тудыги дыги дыги дан тангуро тынга дан дам",
+    "image": "",
+    "price": "350.00",
+    "discount": "0.00",
+    "quantity": 27,
+    "category": 17
+  }
+}
+]
