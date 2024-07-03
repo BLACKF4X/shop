@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 def catalog(request):
-    context: dict[str, str] = {
+    context = {
         'title': 'M&B - Каталог',
         'goods': [
             {'image': 'deps/images/goods/set of tea table and three chairs.jpg',
