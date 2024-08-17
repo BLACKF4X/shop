@@ -5,12 +5,9 @@ from goods.models import Category
 
 def index(request):
 
-    category = Category.objects.all()
-
     context = {
         'title': 'M&B - Главная',
         'content': "Магазин",
-        'categories': category
     }
 
     return render(request, 'main/index.html', context)
