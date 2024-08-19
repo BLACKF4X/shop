@@ -4,13 +4,13 @@ from goods.models import Category
 
 
 def index(request):
-
     context = {
         'title': 'M&B - Главная',
         'content': "Магазин",
     }
 
     return render(request, 'main/index.html', context)
+
 
 def about(request):
     context = {
