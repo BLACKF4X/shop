@@ -1,0 +1,1 @@
+[{"model": "goods.category", "pk": 11, "fields": {"name": "Все товары", "slug": "all"}}, {"model": "goods.category", "pk": 12, "fields": {"name": "Офис", "slug": "ofis"}}, {"model": "goods.category", "pk": 13, "fields": {"name": "Канцелярия", "slug": "kancelyariya"}}, {"model": "goods.category", "pk": 14, "fields": {"name": "Спорт и отдых", "slug": "sport-i-otdyh"}}]
