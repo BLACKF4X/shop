@@ -3,7 +3,7 @@
 {% load goods_tags %}
 
 {% block content %}
-    <div class="row">
+    <div class="row" style="min-height: calc(100vh - 120px);">
         <!-- Форма фильтров -->
         <div class="dropdown mb-2">
             <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
@@ -48,13 +48,12 @@
         </div>
 
         {% if request.GET.q %}
-            <h1 class="mt-4">Результаты поиска по запросу {{ request.GET.q }}</h1>
+            <h1 class="mt-4">Результаты поиска по запросу "{{ request.GET.q }}"</h1>
             {% if not goods %}
                 <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
                 <h3 class="mt-4"><strong>По вашему запросу ничего не найдено</strong></h3>
             {% endif %}
         {% endif %}
-
 
         {% for product in goods %}
         <!-- Карта товара -->
@@ -88,7 +87,6 @@
                     </p>
                     <p class="product_id">id: {{ product.display_id }}</p>
                     <div class="d-flex justify-content-between">
-
                         {% if product.discount %}
                             <p><s>{{ product.price }}</s> ₽</p>
                             <p><strong>{{ product.sell_price }} ₽</strong></p>
@@ -96,7 +94,6 @@
                         {% else %}
                             <p><strong>{{ product.price }} ₽</strong></p>
                         {% endif %}
-
                         <a href="#" class="btn add-to-cart">
                             <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon"
                                 width="32" height="32">
@@ -109,7 +106,7 @@
 
     </div>
     <!-- Пагинация -->
-     {% if goods %}
+    {% if goods %}
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center my-4">
                 <div class="custom-shadow d-flex">
@@ -135,7 +132,7 @@
 {% endblock %}
 
 {% block footer %}
-    <footer class="py-4 bg-dark">
+    <footer class="py-4 bg-dark mt-auto">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; ИВТ-31Д 0/1 + 36</p>
         </div>
