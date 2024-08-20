@@ -5,12 +5,18 @@
     <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
 {% endblock %}
 
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock %}
+
 {% block content %}
-    <div class="mt-5 pt-5 bg-white custom-shadow rounded">
-        <h2 class="m-2"><strong>{{ content }}</strong></h2>
-        <p class="m-2">{{ text_on_page }}</p>
+    <div class="bg-white custom-shadow rounded p-4 mb-5">
+        <h1 class="m-0 mb-3"><strong>{{ content }}</strong></h1>
+        <p class="m-0">{{ text_on_page|linebreaks }}</p>
     </div>
 {% endblock %}
+
+
 
 {% block footer %}
     <footer class="py-4 bg-dark">

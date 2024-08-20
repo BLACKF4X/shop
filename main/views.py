@@ -16,7 +16,9 @@ def about(request):
     context = {
         'title': 'M&B - О нас',
         'content': "О нас",
-        'text_on_page': "ЕБАТЬ ОКНО АХУЕННОЕ"
+        'text_on_page': "ИВТ-31Д (Уже 41-Д) представляет свою версию магазина как замену 1С.\nРабота явно "
+                        "заслуживает одобрения со стороны кафедры."
     }
 
     return render(request, 'main/about.html', context)
+
