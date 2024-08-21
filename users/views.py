@@ -19,7 +19,7 @@ def login(request):
 
             if user:
                 auth.login(request, user)
-                messages.success(request, f"{username}, Вы вошли в аккаунт")
+                messages.success(request, f"Добро пожаловать, {username}!")
 
                 if session_key:
                     Cart.objects.filter(session_key=session_key).update(user=user)
@@ -52,7 +52,7 @@ def registration(request):
 
             if session_key:
                 Cart.objects.filter(session_key=session_key).update(user=user)
-            messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
+            messages.success(request, f"Успешная регистрация! {user.username}, добро пожаловать!")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm()
@@ -70,7 +70,7 @@ def profile(request):
         form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, "Профайл успешно обновлен")
+            messages.success(request, "Профиль успешно обновлен")
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)
@@ -88,6 +88,6 @@ def users_cart(request):
 
 @login_required
 def logout(request):
-    messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
+    messages.success(request, f"До свидания, {request.user.username}!")
     auth.logout(request)
     return redirect(reverse('main:index'))
