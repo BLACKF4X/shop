@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from carts.models import Cart
 
 
 def login(request):
@@ -13,9 +14,15 @@ def login(request):
             username = request.POST['username']
             password = request.POST['password']
             user = auth.authenticate(username=username, password=password)
+
+            session_key = request.session.session_key
+
             if user:
                 auth.login(request, user)
-                messages.success(request, f"{username}, Вход выполнен успешно!")
+                messages.success(request, f"{username}, Вы вошли в аккаунт")
+
+                if session_key:
+                    Cart.objects.filter(session_key=session_key).update(user=user)
 
                 redirect_page = request.POST.get('next', None)
                 if redirect_page and redirect_page != reverse('user:logout'):
@@ -37,9 +44,15 @@ def registration(request):
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
+
+            session_key = request.session.session_key
+
             user = form.instance
             auth.login(request, user)
-            messages.success(request, f"{user.username}, Регистрация и вход были выполнены успешно!")
+
+            if session_key:
+                Cart.objects.filter(session_key=session_key).update(user=user)
+            messages.success(request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm()
@@ -57,13 +70,13 @@ def profile(request):
         form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, f"Профиль успешно обновлён!")
+            messages.success(request, "Профайл успешно обновлен")
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)
 
     context = {
-        'title': 'M&B - Личный кабинет',
+        'title': 'M&B - Кабинет',
         'form': form
     }
     return render(request, 'users/profile.html', context)
@@ -75,6 +88,6 @@ def users_cart(request):
 
 @login_required
 def logout(request):
-    messages.success(request, f"{request.user.username}, Выход выполнен успешно!")
+    messages.success(request, f"{request.user.username}, Вы вышли из аккаунта")
     auth.logout(request)
     return redirect(reverse('main:index'))
