@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from django.contrib import auth, messages
-from django.urls import reverse
+from django.db.models import Prefetch
 from django.http import HttpResponseRedirect
-from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from carts.models import Cart
+from orders.models import Order, OrderItem
+
+from users.forms import ProfileForm, UserLoginForm, UserRegistrationForm
 
 
 def login(request):
@@ -19,7 +22,7 @@ def login(request):
 
             if user:
                 auth.login(request, user)
-                messages.success(request, f"Добро пожаловать, {username}!")
+                messages.success(request, f"Добро пожаловать {username}!")
 
                 if session_key:
                     Cart.objects.filter(session_key=session_key).update(user=user)
@@ -52,7 +55,7 @@ def registration(request):
 
             if session_key:
                 Cart.objects.filter(session_key=session_key).update(user=user)
-            messages.success(request, f"Успешная регистрация! {user.username}, добро пожаловать!")
+            messages.success(request, f"Регистрация пройдена успешно! Добро пожаловать, {user.username}!")
             return HttpResponseRedirect(reverse('main:index'))
     else:
         form = UserRegistrationForm()
@@ -75,9 +78,17 @@ def profile(request):
     else:
         form = ProfileForm(instance=request.user)
 
+    orders = Order.objects.filter(user=request.user).prefetch_related(
+        Prefetch(
+            "orderitem_set",
+            queryset=OrderItem.objects.select_related("product"),
+        )
+    ).order_by("-id")
+
     context = {
         'title': 'M&B - Кабинет',
-        'form': form
+        'form': form,
+        'orders': orders,
     }
     return render(request, 'users/profile.html', context)
 
