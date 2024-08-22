@@ -6,7 +6,7 @@
 <div>
     <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
         aria-expanded="false">
-        <img class="mx-1" src="{% static 'deps/icons/basket2-fill.svg' %}" alt="Catalog Icon" width="24"
+        <img class="mx-1" src="{% static "deps/icons/basket2-fill.svg" %}" alt="Catalog Icon" width="24"
             height="24">
         <span id="goods-in-cart-count">{{ carts.total_quantity }}</span>
     </button>
@@ -28,7 +28,7 @@
                     <!-- Закончилась разметка корзины -->
                 </div>
                 {% if carts %}
-                    <a class="btn btn-dark" href="orders/create_order.html">
+                    <a class="btn btn-dark" href="{% url "orders:create_order" %}">
                         Оформить заказ
                     </a>
                 {% endif %}
