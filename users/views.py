@@ -38,7 +38,7 @@ class UserLoginView(LoginView):
                 # add new authorized user carts from anonimous session
                 Cart.objects.filter(session_key=session_key).update(user=user)
 
-                messages.success(self.request, f"Добро пожаловать {username}!")
+                messages.success(self.request, f"Добро пожаловать {user.username}!")
 
                 return HttpResponseRedirect(self.get_success_url())
 
