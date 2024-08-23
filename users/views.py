@@ -82,11 +82,11 @@ class UserProfileView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, "Профиль успешно обновлен")
+        messages.success(self.request, "Профиль успешно обновлен!")
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "Произошла ошибка")
+        messages.error(self.request, "Произошла ошибка!")
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
